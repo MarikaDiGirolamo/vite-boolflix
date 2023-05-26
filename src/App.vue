@@ -3,12 +3,17 @@ import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 import AppFooter from './components/AppFooter.vue';
 
+import { store } from './data/store';
+
 export default {
   name: "App",
   components: {
     AppHeader,
-    AppComponent,
-    AppCard
+    AppMain,
+    AppFooter
+  },
+  data() {
+    return store
   }
 }
 
@@ -16,9 +21,9 @@ export default {
 
 <template>
 
-<AppHeader />
-<AppMain />
-<AppFooter />
+  <AppHeader />
+  <AppMain />
+  <AppFooter />
 
 </template>
 
