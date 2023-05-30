@@ -1,35 +1,58 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
-import AppFooter from './components/AppFooter.vue';
+import AppMovies from './components/AppMovies.vue';
+import AppSeries from './components/AppSeries.vue';
 
-import { store } from './data/store';
+import axios from "axios"; //devo ricordarmi di riportarlo nel metodo!!!
+import {store} from './data/store';
 
-export default {
-  name: "App",
+export default{
   components: {
     AppHeader,
     AppMain,
-    AppFooter
+    AppMovies,
+    AppSeries
   },
-  data() {
-    return store
-  }
-}
+  data(){
+    return{
+      store
+    }
+  },
+  methods: {
+    dataApi() {
+      axios
+        .get("https://api.themoviedb.org/3/search/movie", {
+          params: {
+            apiKEY: "1ec73bb891bfcf05eeda5ea8d9c9ef04",
+            query: this.store.SearchText,
+          },
+        })
+        .then((response) => (this.store.movies = response.data.results));
 
+      axios
+        .get("https://api.themoviedb.org/3/search/tv", {
+          params: {
+            apiKEY: "1ec73bb891bfcf05eeda5ea8d9c9ef04",
+            query: this.store.SearchText,
+          },
+        })
+        .then((response) => (this.store.series = response.data.results));
+    },
+
+    created() {
+      this.dataApi()
+    },
+  },
+};
 </script>
 
 <template>
-
-  <AppHeader />
+  <AppHeader @submit="dataApi" />
   <AppMain />
-  <AppFooter />
-
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 @use './styles/generic.scss' as *;
-@use './styles/partials/_mixins.scss' as *;
-@use './styles/partials/_variables.scss' as *;
 
 </style>

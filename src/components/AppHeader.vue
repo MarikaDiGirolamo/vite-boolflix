@@ -1,102 +1,70 @@
 <script>
-export default {
-    name: "AppHeader",
+
+import {store} from "../data/store";
+import axios from 'axios';
+
+export default{
     components: {
-        
-        },
-        data(){
-            return{
-
-            }
-        },
-        methods: {
-
-        },
-        mounted() {
-
+        name: "AppHeader"
+    },
+    data(){
+        return{
+            store
         }
+    },
+    methods: {
+        Searching() {
+            this.$emit('submit');
+        },
+    },
+
+    mounted(){
+
+    }
 }
 </script>
 
 <template>
     <header>
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-        <!-- Container wrapper -->
-            <div class="container-fluid">
-                <!-- Navbar brand -->
-                <a class="navbar-brand" href="#">Boolflix</a>
-
-                <!-- Toggle button -->
-                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-                </button>
-
-                <!-- Collapsible wrapper -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left links -->
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">TV Shows</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Movies</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Recently Added</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">My List</a>
-                        </li>
-                    </ul>
-                    <!-- Left links -->
-
-                    <!-- Search form -->
-                    <form class="d-flex input-group w-auto">
-                        <input type="search" class="form-control" placeholder="Type query" aria-label="Search" />
-                        <button class="btn btn-outline-primary" type="button" data-mdb-ripple-color="dark" style="padding: .45rem 1.5rem .35rem;">
-                        Search
-                        </button>
-                    </form>
-                    <ul class="navbar-nav mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">CHILDREN</a>
-                        </li>
-                        <!-- Navbar dropdown -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle hidden-arrow" href="#" id="navbarDropdown" role="button"
-                                data-mdb-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-bell"></i>
-                            </a>
-                        </li>       
-                    </ul>
-                </div>
-                <!-- Collapsible wrapper -->
+        <nav>
+            <div>
+                <h1>BOOLFLIX</h1>
             </div>
-        <!-- Container wrapper -->
+
+            <div class=" search input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search..." v-model="store.SearchText" @keyup.enter="Searching">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" @click="Searching" type="button">Search</button>
+                </div>
+            </div>
+
         </nav>
-<!-- Navbar -->
     </header>
 </template>
 
-<style lang="scss" scoped>
-@use '../styles/generic.scss' as *;
-
-
-
-.navbar-dark .nav-item .nav-link {
-    color: #fff;
+<style scoped lang="scss">
+nav {
+    height: 7rem;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    color: red;
 }
 
-.navbar-dark .nav-item .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-    border-radius: 0.25rem;
-    color: #fff;
+h1 {
+    color: red;
+    font-size: 3rem;
+    margin: 1rem;
+    text-shadow:6px 4px 2px rgba(255,21,8,0.43); 
 }
 
+
+
+.search {
+    padding: 1rem 0 0 7rem;
+    justify-content: center;
+    align-items: center;
+}
 </style>
